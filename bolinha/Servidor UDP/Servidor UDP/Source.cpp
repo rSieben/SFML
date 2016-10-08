@@ -19,6 +19,7 @@ void configurarRede() {
 	sockaddr_in e;
 	e.sin_family = AF_INET;
 	e.sin_port = htons(123456);
+	InetPton(AF_INET, "0.0.0.0", &e.sin_addr);
 	r = bind(servidorSocket, (SOCKADDR*)&e, sizeof(e));
 }
 
