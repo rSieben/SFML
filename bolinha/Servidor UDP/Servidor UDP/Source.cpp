@@ -3,13 +3,31 @@
 #include <WS2tcpip.h>
 #include <GameProtocol.h>
 
+#define ATRASAR_MENSAGENS
+
 SOCKET servidorSocket;
 
 struct Jogador {
 	float x = 100.f, y = 100.f;
+} jogador;
+
+#ifdef ATRASAR_MENSAGENS
+
+#include <thread>
+#include <queue>
+#include <mutex>
+#define ATRASO 500
+
+std::mutex travaTarefa;
+
+struct Tarefa {
+	ComandoMovimentoResponse response;
+	sockaddr_in remetente;
+	clock_t envio;
 };
 
-Jogador jogador;
+#endif
+
 
 void configurarRede() {
 	int r;
